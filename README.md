@@ -1,0 +1,2 @@
+# hsdraft
+HearthStone Arena simulator
