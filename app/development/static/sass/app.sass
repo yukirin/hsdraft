@@ -1,0 +1,119 @@
+$primary-color: #3f51b5
+$primary-color-right: #c5cae9
+$primary-color-dark: #303f9f
+$text-color: #ffffff
+$accent-color: #ff4081
+$primary-text: #212121
+$secondary-text: #727272
+$divider-color: #b6b6b6
+$secondary-color: $accent-color
+$base-color: #fcfcfc
+$base-color-dark: #e0e0e0
+
+$rare: #1565c0
+$epic: #6a1b9a
+$legendary: #f9a825
+$health: #c62828
+
+$fa-font-path: "../font/fontawesome"
+@import materialize/sass/materialize.scss
+@import fontawesome/scss/font-awesome.scss
+@import compass
+@import compass/css3
+
+$materialize-h5-font-size: 1.804rem
+$collection-border-color: #e0e0e0
+$color-white: #ffffff
+
+body
+  background-color: $base-color
+
+h1, h2, h3, h4, h5, h6
+  color: $primary-text
+
+footer.page-footer
+  background-color: $primary-color
+  color: $text-color
+  h5
+    color: $text-color
+
+.hide
+  +opacity(0)
+
+.hide-trans
+  +transition-property(opacity)
+  +transition-duration(.3s)
+
+.hide.shown
+  +opacity(1)
+
+i.fa-diamond, span.Rare
+  color: $rare
+
+i.fa-gavel, span.Legendary, span.right.count
+  color: $legendary
+
+i.fa-tint
+  color: $health
+
+span.Epic
+  color: $epic
+
+div#candidates
+  background-color: $base-color-dark
+  +box-shadow(inset 0 -7px 7px -5px rgba(0, 0, 0, .1), inset 0 7px 7px -5px rgba(0, 0, 0, .2))
+
+a.retry, a.shuffle
+  margin-top: 15px
+
+div a.retry:first-child
+  margin-right: 1rem
+
+canvas
+  padding-right: 1.5rem
+
+div#arena
+  font-weight: bold
+
+td
+  padding: 0.55rem 0.75rem
+
+div.stats
+  +border-radius(2px)
+  background-color: $color-white
+  padding: 0.75rem 1.3rem
+  line-height: 1.5rem
+  border: 1px solid $collection-border-color
+
+div#deck-table
+  overflow: auto
+  +border-radius(2px)
+
+div#shuffle, div.row.first
+  margin-bottom: 0
+
+span.stats-count
+  color: $primary-color
+
+div.android
+  overflow: scroll !important
+
+div.tab-container
+  margin-top: 1rem
+
+div.tab-content
+  margin-bottom: 0.8rem
+
+img.circle
+  +inline-block
+  margin-right: 0.55rem
+  height: $materialize-h5-font-size
+  vertical-align: bottom
+
+@media #{$large-and-up}
+  img.responsive-img
+    max-width: 95%
+    height: auto
+
+div#deck-data-right
+  +box-shadow(rgba(0, 0, 0, .15) 0 0 2px)

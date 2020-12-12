@@ -1,0 +1,86 @@
+{
+  "name": "tornadoapp",
+  "version": "0.0.1",
+  "description": "tornado app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tornado",
+    "app"
+  ],
+  "author": "yukirin",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "browser": {
+    "jquery": "./bower_components/jquery/dist/jquery.min.js",
+    "knockout": "./bower_components/knockoutjs/dist/knockout.js",
+    "materialize": "./bower_components/materialize/dist/js/materialize.min.js",
+    "chart": "./bower_components/chartjs/Chart.min.js",
+    "footerFixed": "./app/development/static/js/footerFixed.js",
+    "velocity": "./bower_components/velocity/velocity.min.js",
+    "velocityUi": "./bower_components/velocity/velocity.ui.min.js",
+    "waitForImages": "./bower_components/waitForImages/dist/jquery.waitforimages.min.js"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "jquery": "$",
+    "knockout": "ko",
+    "chart": "Chart",
+    "materialize": {
+      "exports": "materialize",
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "velocity": {
+      "exports": "Velocity",
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "velocityUi": {
+      "exports": "velocityUi",
+      "depends": [
+        "jquery:jQuery",
+        "velocity:Velocity"
+      ]
+    },
+    "waitForImages": {
+      "exports": "waitForImages",
+      "depends": [
+        "jquery:jQuery"
+      ]
+    }
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "bower": "*",
+    "browserify": "*",
+    "browserify-shim": "*",
+    "gulp-image-resize": "*",
+    "gulp-imagemin": "*",
+    "gulp-filelog": "*",
+    "gulp-changed": "*",
+    "gulp-plumber": "*",
+    "gulp-uglify": "*",
+    "vinyl-source-stream": "*",
+    "vinyl-buffer": "*",
+    "gulp-compass": "*",
+    "del": "*",
+    "gulp-shell": "*",
+    "run-sequence": "*",
+    "gulp-notify": "*",
+    "gulp-pyjade": "git://github.com/htch/gulp-pyjade.git#master",
+    "gulp-cached": "*",
+    "gulp-livereload": "*",
+    "with-env": "*",
+    "gulp-htmlmin": "*"
+  }
+}

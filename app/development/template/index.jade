@@ -1,0 +1,136 @@
+doctype html
+html(lang="ja")
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        title HearthDraft
+        meta(name="description", content="HearthstoneのArenaシミュレーションサイト")
+        meta(name="keywords", content="Hearthstone,Arena,card,game")
+        meta(name="author", content="yukirin")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+        link(rel="icon", href="{{ static_url('favicon.ico') }}")
+        link(href="{{ static_url('css/app.css') }}", rel="stylesheet", media="screen,projection")
+    body
+        nav
+          div.container
+            div.nav-wrapper
+              a.brand-logo(href="/") HearthDraft
+              a.button-collapse(href="#", data-activates="nav-mobile")
+                i.mdi-navigation-menu
+              ul.right.hide-on-med-and-down
+                li
+                  a(href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fhearthdraft.herokuapp.com&t=HearthDraft" target="_blank")
+                    i.fa.fa-facebook.left
+                    | Facebook
+                li
+                  a(href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fhearthdraft.herokuapp.com&text=HearthDraft:%20http%3A%2F%2Fhearthdraft.herokuapp.com" target="_blank")
+                    i.fa.fa-twitter.left
+                    | Twitter
+                li
+                  a(href="https://plus.google.com/share?url=http%3A%2F%2Fhearthdraft.herokuapp.com" target="_blank")
+                    i.fa.fa-google-plus.left
+                    | Google+
+              ul#nav-mobile.side-nav
+                li
+                  a(href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fhearthdraft.herokuapp.com&t=HearthDraft" target="_blank")
+                    i.fa.fa-facebook.fa-fw
+                    | Facebook
+                li
+                  a(href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fhearthdraft.herokuapp.com&text=HearthDraft:%20http%3A%2F%2Fhearthdraft.herokuapp.com" target="_blank")
+                    i.fa.fa-twitter.fa-fw
+                    | Twitter
+                li
+                  a(href="https://plus.google.com/share?url=http%3A%2F%2Fhearthdraft.herokuapp.com" target="_blank")
+                    i.fa.fa-google-plus.fa-fw
+                    | Google+
+        div#arena
+          h5.center-align
+            span(data-bind="text: info")
+          div#candidates(data-bind="animateVisible: completed, delay: 300, animation: 'slideUp', duration: 500")
+            div.container
+              div.container
+                div#candidates-cards.section.row(data-bind="foreach: {data: candidates}")
+                  div.col.s4.l4
+                    div.waves-effect.waves-block.waves-light
+                      img.responsive-img.hide.hide-trans(data-bind="attr: { alt: name, src: cardimage }, click: $parent.update, css: {shown: $parent.cardShown}")
+          div#shuffle.row
+            div.center-align
+              div.col.s4.l4.offset-s4.offset-l4(data-bind="visible: !hero().name")
+                a.waves-effect.waves-light.btn.shuffle(data-bind="click: shuffle") Shuffle Heroes
+              div.hide(data-bind="visible: completed, css: {shown: completed}")
+                a.waves-effect.waves-light.btn.retry(target="_blank", data-bind="attr: {href: deckBuilderUrl}") Open in HearthPwn
+                  a.waves-effect.waves-light.btn.retry(href="/") Retry
+          div.container.section
+            div#deck-info.row.hide(data-bind="animateVisible: hero().name, duration: 500, animation: 'fadeIn', init: true")
+              div#deck-data.col.s7.l8.m8
+                div.row.first
+                  div.col.s4.l4.m4.hide-on-small-only
+                    div.section
+                      img.responsive-img(data-bind="attr: { alt: hero().name, src: hero().cardimage }")
+                  div.col.s12.l8.m8
+                    h5.center-align
+                      i.fa.fa-diamond
+                      |  Cost
+                    canvas#manacurve
+                div.row
+                  div.col.s12.l6.m6
+                    h5.center-align
+                      i.fa.fa-gavel
+                      |  Attack
+                    canvas#atkcurve
+                  div.col.s12.l6.m6
+                    h5.center-align
+                      i.fa.fa-tint
+                      |  Health
+                    canvas#hpcurve
+                div.row
+                  div.section
+                    h5.center-align Deck Stats
+                    div.col.s12
+                      ul#tabs.z-depth-1.tabs(data-bind="foreach: deck.infoKeys")
+                        li.tab.col.s3
+                          a(data-bind="attr: {href: '#' + $data}")
+                            span(data-bind="text: $data")
+                    div(data-bind="foreach: deck.infoKeys")
+                      div.col.s12(data-bind="attr: {id: $data}")
+                        div.tab-container(data-bind="foreach: $parent.deck.infoData[$data]")
+                          div.col.s6.m4.l4.tab-content
+                            div.stats
+                              span(data-bind="text: $data")
+                              span.right.stats-count(data-bind="text: $root.deck.info[$parentContext.$data][$data]")
+              div#deck-data-right.col.s5.l4.m4
+                h5#deck-number.center-align
+                  img.circle(data-bind="attr: {src: hero().iconimage, alt: hero().name}")
+                  span(data-bind="text: deck.len() + ' / 30 Cards'")
+                div#deck-table
+                  table.bordered.hoverable
+                    thead
+                      tr
+                        th(data-field="cost") Cost
+                        th(data-field="name") Name
+                    tbody(data-bind="foreach: {data: deck.cards}")
+                      tr
+                        td
+                          span.Rare(data-bind="text: cost")
+                        td.truncate
+                          span(data-bind="text: name, css: Rarity")
+                          |  x 
+                          span.count(data-bind="text: $parent.deck.cardCount[name]")
+        footer#footer.page-footer
+          div.container
+            div.row
+              div.col.l6.s12
+                h5 Links
+                li: a(href="http://us.battle.net/hearthstone/en/") Hearthstone
+                li: a(href="http://www.hearthpwn.com") HearthPwn
+                li: a(href="http://hearthstone.gamepedia.com") Hearthstone: Heroes of Warcraft Wiki
+              div.col.l6.s12
+                h5 About HearthDraft
+                p
+                  |  Hearthstone content and materials are trademarks and copyrights of Blizzard and its licensors. All rights reserved.
+                  br
+                  | This site is not affiliated with Blizzard.
+          div.footer-copyright
+            div.container
+              span © 2015 yukirin
+        script(src="{{ static_url('js/app.js') }}")
